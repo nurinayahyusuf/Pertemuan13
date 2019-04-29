@@ -1,0 +1,111 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <windows.h>
+using namespace std;
+
+int pilih; void pilihan();
+void insert_data();
+void hapus_data();
+void cetak_data();
+struct node
+{
+ int nomorurut;
+ char nama [40];
+ char jk [20];
+ node *prev, *next;
+};
+node *baru, *head=NULL, *tail=NULL,*help,*del;
+main()
+{
+ do
+ {
+  system("cls");
+  cout<<"MENU : "<<endl;
+  cout<<"1. INPUT DATA"<<endl;
+  cout<<"2. HAPUS DATA"<<endl;
+  cout<<"3. CETAK DATA"<<endl;
+  cout<<"Pilihan (1 - 3) : ";
+  cin>>pilih;
+  cout<<endl<<endl;
+  pilihan();
+ }
+ while(pilih!=4);
+}
+void pilihan()
+{
+ if(pilih==1)
+ insert_data();
+ else if(pilih==2)
+ hapus_data();
+ else if(pilih==3)
+ cetak_data();
+ else
+ {
+  cout<<"EXIT";
+  cout<<"\nSampai Jumpa lagi"<<endl;
+ }
+}
+void buat_baru()
+{
+ baru = new(node);
+ cout<<"Masukkan Nomor Urut    : ";cin>>baru->nomorurut;
+ cout<<"Masukkan Nama          : ";cin>>baru->nama;
+ cout<<"Masukkan Jenis Kelamin : ";cin>>baru->jk;
+ cout<<endl;
+ cout<<"Data telah dimasukkan"<<endl;
+ cout<<"TEKAN ENTER UNTUK MELANJUTKAN...";
+ getch();
+ baru->prev=NULL;
+ baru->next=NULL;
+}
+void insert_data()
+{
+ buat_baru();
+ if(head==NULL)
+ {
+  head=baru;
+  tail=baru;
+ }
+ else
+ {
+  baru->next=head;
+  head->prev=baru;
+  head=baru;
+ }
+ cout<<endl<<endl;
+}
+void hapus_data()
+{
+ int hapus,nomorurut;
+ if(head==NULL)
+ {
+  cout<<"\nLinked List kosong, \nPenghapusan tidak dapat dilakukan"<<endl;
+ }
+ else
+ {
+  hapus=head->nomorurut;
+  cout<<"\nData yang dihapus adalah ";
+  cin>>nomorurut;
+  del = head;
+  head = head->next;
+  delete del;
+ }
+}
+void cetak_data()
+{
+ if (head==NULL)
+ cout<<"\nData tidak dapat ditemukan!"<<endl;
+ else
+ {
+  help=head;
+  while(help!=NULL)
+  {
+   cout<<"Nomor Urut    : "<<help->nomorurut<<endl;
+   cout<<"Nama          : "<<help->nama<<endl;
+   cout<<"Jenis Kelamin : "<<help->jk<<endl;
+   help=help->next;
+  }
+ }
+getch();
+}
